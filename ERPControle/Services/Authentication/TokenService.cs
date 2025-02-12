@@ -18,8 +18,6 @@ namespace Services.Authentication
 
         /// <summary>
         /// Gera um token JWT para o usuário autenticado.
-        /// </summary>
-        /// <param name="user">Dados do usuário autenticado.</param>
         /// <returns>Token JWT gerado.</returns>
         public string GenerateToken(User user)
         {

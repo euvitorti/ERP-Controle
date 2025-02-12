@@ -10,7 +10,7 @@ namespace Infra.Swagger
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Guia Motel API",
+                    Title = "ERP MaxiProd",
                     Version = "v1"
                 });
 

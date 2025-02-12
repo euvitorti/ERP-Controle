@@ -3,6 +3,7 @@ using Infra.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Services.Authentication;
 using Infra.JWT;
+using Services.Persons;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +18,12 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
+// Registrar serviços de salvar pessoas
+builder.Services.AddScoped<IPersonService, PersonService>();
+
 // Adicionar configuração do JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);
-builder.Services.AddAuthorization(); // Garantir que o Authorization está registrado
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

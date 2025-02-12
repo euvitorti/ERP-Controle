@@ -1,5 +1,7 @@
-using Models.Users;
 using Microsoft.EntityFrameworkCore;
+using Models.People;
+using Models.Transactions;
+using Models.Users;
 
 namespace Data
 {
@@ -10,54 +12,48 @@ namespace Data
         {
         }
 
-        // DbSets
         public DbSet<User> Users { get; set; }
-        // public DbSet<Motel> Motels { get; set; }
-        // public DbSet<Suite> SuiteTypes { get; set; }
-        // public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
-        // // Relacionamentos e configurações adicionais no banco
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //     // Relacionamento entre User e Reservation
-        //     modelBuilder.Entity<User>()
-        //         .HasMany(u => u.Reservations)
-        //         .WithOne(r => r.User)
-        //         .HasForeignKey(r => r.UserId);
+            modelBuilder.Entity<User>()
+                    .HasIndex(u => u.Email)
+                    .IsUnique();
 
-        //     // Relacionamento entre Motel e Reservation
-        //     modelBuilder.Entity<Motel>()
-        //         .HasMany(m => m.Reservations)
-        //         .WithOne(r => r.Motel)
-        //         .HasForeignKey(r => r.MotelId);
+            modelBuilder.Entity<Person>(entity =>
+            {
+                entity.HasKey(p => p.Id);
 
-        //     // Relacionamento entre Motel e SuiteType
-        //     modelBuilder.Entity<Motel>()
-        //         .HasMany(m => m.SuiteTypes)
-        //         .WithOne(s => s.Motel)
-        //         .HasForeignKey(s => s.MotelId);
+                entity.Property(p => p.Name)
+                      .IsRequired();
 
-        //     // Relacionamento entre SuiteType e Reservation
-        //     modelBuilder.Entity<Suite>()
-        //         .HasMany(s => s.Reservations)
-        //         .WithOne(r => r.SuiteType)
-        //         .HasForeignKey(r => r.SuiteTypeId);
+                entity.Property(p => p.Age)
+                      .IsRequired();
 
-        //     // Índice único para Email na tabela User
-        //     modelBuilder.Entity<User>()
-        //         .HasIndex(u => u.Email)
-        //         .IsUnique();
+                // Relação: Uma Person possui muitas Transactions com deleção em cascata
+                entity.HasMany(p => p.Transactions)
+                      .WithOne(t => t.Person)
+                      .HasForeignKey(t => t.PersonId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
 
-        //     // Criação de índices para otimizar as consultas
-        //     modelBuilder.Entity<Reservation>()
-        //         .HasIndex(r => new { r.StartDate, r.EndDate, r.MotelId, r.SuiteTypeId });
+            modelBuilder.Entity<Transaction>(entity =>
+            {
+                entity.HasKey(t => t.Id);
 
-        //     modelBuilder.Entity<Reservation>()
-        //         .HasIndex(r => r.StartDate);
-        //     modelBuilder.Entity<Reservation>()
-        //         .HasIndex(r => r.EndDate);
-        // }
+                entity.Property(t => t.Description)
+                      .IsRequired();
+
+                entity.Property(t => t.Value)
+                      .IsRequired();
+
+                entity.Property(t => t.Type)
+                      .IsRequired();
+            });
+        }
     }
 }

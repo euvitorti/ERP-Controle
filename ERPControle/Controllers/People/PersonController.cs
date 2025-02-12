@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Persons;
 
-namespace Controllers.Persons
+namespace Controllers.People
 {
     [Authorize]
     [ApiController]
-    [Route("api/person")]
+    [Route("api/people")]
     public class PersonController : ControllerBase
     {
         private readonly IPersonService _personService;

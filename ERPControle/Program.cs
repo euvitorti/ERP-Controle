@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Services.Authentication;
 using Infra.JWT;
 using Services.Persons;
+using Services.Transactions;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +23,18 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 // Registrar serviços de salvar pessoas
 builder.Services.AddScoped<IPersonService, PersonService>();
 
+// Registrar serviçoes para salvar transações
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+
 // Adicionar configuração do JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorization();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+    {
+        // Converte valores de enum para string
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 
 // Substitui a configuração simples pelo método que inclui o suporte ao JWT

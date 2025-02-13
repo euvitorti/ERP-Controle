@@ -1,11 +1,14 @@
 using Data;
 using Infra.Swagger;
 using Microsoft.EntityFrameworkCore;
-using Services.Authentication;
-using Infra.JWT;
-using Services.Persons;
-using Services.Transactions;
+using Infra.JWT.Config;
 using System.Text.Json.Serialization;
+using Services.Summary;
+using Auth.Services;
+using People.Services;
+using Transactions.Services;
+using Infra.JWT.Services;
+using Users.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,15 +19,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
+// Registrar serviços crud dos users
+builder.Services.AddScoped<IUserService, UserService>();
+
 // Registrar serviços de autenticação
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-// Registrar serviços de salvar pessoas
+// Registrar serviços crud das pessoas
 builder.Services.AddScoped<IPersonService, PersonService>();
 
-// Registrar serviçoes para salvar transações
+// Registrar serviços crud das transações
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+
+// Registrar serviços crud dos relatórios
+builder.Services.AddScoped<ISummaryService, SummaryService>();
 
 // Adicionar configuração do JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);
@@ -53,8 +62,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseAuthentication(); // Middleware de autenticação para validar o JWT
-app.UseAuthorization();  // Middleware de autorização
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.Run();

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Models.People;
-using Models.Transactions;
-using Models.Users;
+using People.Model;
+using Transactions.Model;
+using Users.Model;
 
 namespace Data
 {

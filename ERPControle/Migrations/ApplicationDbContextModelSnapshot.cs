@@ -21,7 +21,7 @@ namespace ERPControle.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Models.People.Person", b =>
+            modelBuilder.Entity("People.Model.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace ERPControle.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("Models.Transactions.Transaction", b =>
+            modelBuilder.Entity("Transactions.Model.Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace ERPControle.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("Models.Users.User", b =>
+            modelBuilder.Entity("Users.Model.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,9 +97,9 @@ namespace ERPControle.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Models.Transactions.Transaction", b =>
+            modelBuilder.Entity("Transactions.Model.Transaction", b =>
                 {
-                    b.HasOne("Models.People.Person", "Person")
+                    b.HasOne("People.Model.Person", "Person")
                         .WithMany("Transactions")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -108,7 +108,7 @@ namespace ERPControle.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("Models.People.Person", b =>
+            modelBuilder.Entity("People.Model.Person", b =>
                 {
                     b.Navigation("Transactions");
                 });

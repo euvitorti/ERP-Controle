@@ -10,6 +10,10 @@ namespace Users.Services
     {
         private readonly ApplicationDbContext _context;
 
+        public UserService(ApplicationDbContext context){
+            _context = context;
+        }
+
         public async Task RegisterAsync(RegisterDto registerDto)
         {
             // Verifica se já existe um usuário com o mesmo Email

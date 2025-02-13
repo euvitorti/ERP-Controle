@@ -27,6 +27,9 @@ namespace Controllers.Transactions
 
             var transaction = await _transactionService.CreateTransactionAsync(transactionDTO);
 
+            if(transaction == null)
+                return BadRequest("Pessoas menores de 18 anos só podem registrar despesas.");
+
             // Retorna 201 Created e chama o método GetById para obter a transação criada
             return CreatedAtAction(nameof(GetById), new { id = transaction.Id }, transaction);
         }

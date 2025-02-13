@@ -69,8 +69,7 @@ namespace Controllers.People
 
             return Ok(updatedPerson);
         }
-
-
+        
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Enum;
 using Models.People;
 
@@ -24,7 +25,12 @@ namespace Models.Transactions
         [Required]
         public int PersonId { get; set; }
 
+        // Apenas para relacionamento, sem o jsonignore ocorre um erro de serialização
+        // Person possui uma coleção de Transaction
+        // Cada Transaction possui uma propriedade Person
+        // Gera um loop infinito na serialização, pois contêm a mesma pessoa e assim por diante
         [ForeignKey(nameof(PersonId))]
+        [JsonIgnore]
         public Person Person { get; set; }
     }
 }

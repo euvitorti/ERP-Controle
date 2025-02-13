@@ -42,5 +42,12 @@ namespace Controllers.People
 
             return Ok(person);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var persons = await _personService.GetAllPersonsAsync();
+            return Ok(persons);
+        }
     }
 }

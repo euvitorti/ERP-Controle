@@ -29,9 +29,18 @@ namespace Services.Persons
             return person;
         }
 
+        // Nos métodos: GetPersonByIdAsync e GetAllPersonsAsync
+        // Por padrão o EF Core ao fazer as consultas usa a forma Lazy Loading, não carrega aa relações automaticamente
+        // Usar o Include para fazer as consultas
+
         public async Task<Person?> GetPersonByIdAsync(int id)
         {
-            return await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Persons.Include(p => p.Transactions).FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<IEnumerable<Person>> GetAllPersonsAsync()
+        {
+            return await _context.Persons.Include(p => p.Transactions).ToListAsync();
         }
     }
 }

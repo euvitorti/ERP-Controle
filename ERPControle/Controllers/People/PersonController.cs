@@ -34,6 +34,7 @@ namespace Controllers.People
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            // Método da classe service para buscar uma pessoa pelo id
             var person = await _personService.GetPersonByIdAsync(id);
             if (person == null)
             {
@@ -46,8 +47,47 @@ namespace Controllers.People
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            // Método da classe service para buscar todas as pessoas
             var persons = await _personService.GetAllPersonsAsync();
             return Ok(persons);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] PersonDto personDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Método da classe service para atualizar uma pessoa buscando pelo id
+            var updatedPerson = await _personService.UpdatePersonAsync(id, personDto);
+            if (updatedPerson == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedPerson);
+        }
+
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Método da classe service para deletar uma pessoa buscando pelo id
+            var deletedPerson = await _personService.DeletePersonByIdAsync(id);
+            if (deletedPerson == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(deletedPerson);
         }
     }
 }

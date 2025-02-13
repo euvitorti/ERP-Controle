@@ -9,5 +9,7 @@ namespace Services.Persons
 
         Task<Person?> GetPersonByIdAsync(int id);
         Task<IEnumerable<Person>> GetAllPersonsAsync();
+        Task<Person?> UpdatePersonAsync(int id, PersonDto dto);
+        Task<Person?> DeletePersonByIdAsync(int id);
     }
 }

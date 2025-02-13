@@ -42,5 +42,40 @@ namespace Services.Persons
         {
             return await _context.Persons.Include(p => p.Transactions).ToListAsync();
         }
+
+        public async Task<Person?> UpdatePersonAsync(int id, PersonDto personDto)
+        {
+            // Busca a pessoa pelo id
+            var person = await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
+            if (person == null)
+            {
+                return null;
+            }
+
+            person.Name = personDto.Name;
+            person.Age = personDto.Age;
+
+            // Atualizando o banco de dados
+            await _context.SaveChangesAsync();
+
+            return person;
+        }
+
+        public async Task<Person?> DeletePersonByIdAsync(int id)
+        {
+            // Busca a pessoa pelo id
+            var person = await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
+            if (person == null)
+            {
+                return null;
+            }
+
+            // Apagando os dados em cascata como está configurado no ApplicationDbContext
+            _context.Persons.Remove(person);
+            
+            await _context.SaveChangesAsync();
+
+            return person;
+        }
     }
 }

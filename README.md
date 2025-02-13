@@ -61,3 +61,8 @@ Copiar
 Editar
 dotnet run
 Com isso, você terá o ambiente configurado para começar o desenvolvimento da API com segurança, autenticação e integração com o PostgreSQL. Se precisar de mais detalhes para configurar o appsettings.json ou outros ajustes, é só avisar!
+
+
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection

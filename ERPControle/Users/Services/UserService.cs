@@ -9,7 +9,6 @@ namespace Users.Services
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ITokenService _tokenService;
 
         public async Task RegisterAsync(RegisterDto registerDto)
         {

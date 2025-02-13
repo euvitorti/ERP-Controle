@@ -12,7 +12,7 @@ namespace Users.Controller
 
         public UserController(IUserService iuserService)
         {
-            iuserService = iuserService;
+            this.iuserService = iuserService;
         }
 
         [HttpPost("register")]

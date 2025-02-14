@@ -13,8 +13,7 @@ Esta API foi desenvolvida para atender integralmente aos requisitos do teste, os
 **Funcionalidades Adicionais Implementadas**
 
 1. Autenticação com JWT: Implementação de autenticação para proteger as rotas da API.
-
-2. Persistência com Banco de Dados PostgreSQL:
+2. Persistência com Banco de Dados PostgreSQL
 3. Utilização de um banco de dados relacional com migrations para criação e manutenção do esquema.
 
 ---

@@ -127,13 +127,13 @@ Clique em Authorize e depois em Close.
 ## Rotas
 
 - **Authentication**
-  - Rota: POST /api/authentication/login: Recebe as credenciais, valida e, se corretas, retorna um token de acesso. Em caso de falha, retorna erro 401 com mensagem informativa.
+  - Rota: POST /api/authentication/login: Recebe as credenciais e retorna um token de acesso. Em caso de falha, retorna erro 401 com mensagem informativa.
 
 - **User**
-  - Rota: POST /api/user/register: Cadastra o novo usuário com os dados de registro e, se a operação for bem-sucedida, retorna uma mensagem de sucesso; caso contrário, retorna um erro caos o usuário já estiver cadastrado.
+  - Rota: POST /api/user/register: Cadastra o novo usuário com os dados de registro e, se a operação for bem-sucedida, retorna uma mensagem de sucesso, caso contrário, retorna um erro se o usuário já estiver cadastrado.
 
 - **People**
-  - Rota: POST /api/people: Cria uma nova pessoa com os dados enviados, se válidos, cria a pessoa retornando o objeto criado com status 201 (Created).
+  - Rota: POST /api/people: Salva uma nova pessoa com os dados enviados e retorna o status 201 (Created).
   - GET /api/people/{id}: Busca uma pessoa específica pelo ID e retorna os dados da pessoa se encontrada ou um erro 404 (Not Found) caso não exista.
   - GET /api/people: Retorna a lista de todas as pessoas cadastradas.
   - PUT /api/people/{id}: Atualiza os dados de uma pessoa existente pelo ID. Após validar os dados enviados, atualiza e retorna a pessoa atualizada. Se o ID não existir, retorna 404.
@@ -156,3 +156,22 @@ Clique em Authorize e depois em Close.
 - Sem Instalação: Todo o teste pode ser feito diretamente no Swagger, sem necessidade de ferramentas externas.
 
 A API estará disponível em http://localhost:5000.
+
+## Estrutura de Pastas
+
+O projeto foi organizado por **funcionalidades**, cada funcionalidade possui sua própria pasta, e dentro dela estão as subpastas como `Controllers`, `Services`, `DTOs`, entre outras.
+
+### Pastas Principais:
+
+- **Auth/** → Funcionalidades relacionadas para autenticar usuário
+- **Users/** → Funcionalidades relacionadas a usuários (cadastro, etc.)
+- **Infra/** → Configurações gerais de infraestrutura, como JWT e swagger.
+- **Data/** → Configuração do banco de dados.
+- **Transactions/** → Funcionalidades relacionadas a transações financeiras (criação e listagem).
+- **Summary/** → Funcionalidades de relatórios (criação, listagem, etc).
+- **People/** → Funcionalidades relacionadas ao gerenciamento de pessoas (criação, listagem, etc).
+
+---
+
+### Resumo
+Com essas informações, será possível rodar a aplicação de uma forma fácil.

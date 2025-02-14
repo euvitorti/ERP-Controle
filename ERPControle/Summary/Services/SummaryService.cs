@@ -24,11 +24,11 @@ namespace Services.Summary
             // Para cada pessoa, calcula a despesa, receita e o saldo
             var summaries = persons.Select(p =>
             {
-                // Percorrendo a lista de transações
+                // Percorrendo a lista de transações para somar as despesas e as receitas respctivamente
                 var totalIncome = p.Transactions
                     .Where(t => t.Type == TransactionType.Receita)
                     .Sum(t => t.Value);
-
+                    
                 var totalExpense = p.Transactions
                     .Where(t => t.Type == TransactionType.Despesa)
                     .Sum(t => t.Value);
@@ -47,12 +47,15 @@ namespace Services.Summary
             return summaries;
         }
 
+        // Obter o relatório geral das despesas, receitas e saldo de todas as pessoas
         public async Task<IEnumerable<GeneralSummaryDto>> GetOverallSummaryAsync()
         {
+            // Somar a receita de cada pessoa
             var totalIncome = await _context.Transactions
                 .Where(t => t.Type == TransactionType.Receita)
                 .SumAsync(t => t.Value);
 
+            // Somar a despesa de cada pessoa
             var totalExpense = await _context.Transactions
                 .Where(t => t.Type == TransactionType.Despesa)
                 .SumAsync(t => t.Value);

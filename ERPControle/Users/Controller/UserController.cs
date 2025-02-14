@@ -20,11 +20,13 @@ namespace Users.Controller
         {
             try
             {
+                // Método para salvar o usuário e retorna uma mensagem de sucesso
                 await iuserService.RegisterAsync(registerDto);
                 return Ok(new { message = "Usuário registrado com sucesso!" });
             }
             catch (Exception ex)
             {
+                // Mensagem de erro caso o usuário já esteja cadastrado
                 return BadRequest(new { message = ex.Message });
             }
         }

@@ -20,7 +20,7 @@ namespace Auth.Controller
         {
             try
             {   
-
+                // Chama o método da classe de autenticação para efetuar a autenticação e retornar o token
                 var token = await _authenticationService.LoginAsync(loginDto);
 
                 if (string.IsNullOrEmpty(token))
